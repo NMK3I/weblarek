@@ -4,13 +4,14 @@ import { apiProducts } from './utils/data';
 import { CatalogModel } from './components/models/CatalogModel';
 import { BasketModel } from './components/models/BasketModel';
 import { BuyerModel } from './components/models/BuyerModel';
+import { Api } from './components/base/Api';
 import { ApiWebLarek } from './components/ApiWebLarek';
 import { API_URL } from './utils/constants';
 
 const catalogModel = new CatalogModel();
 const basketModel = new BasketModel();
 const buyerModel = new BuyerModel();
-const ApiLarek = new ApiWebLarek(API_URL);
+const ApiLarek = new ApiWebLarek(new Api(API_URL));
 
 console.log('=== Проверка работы методов ===');
 

@@ -1,39 +1,39 @@
 import { IProduct } from "../../types";
 
 export class BasketModel {
-	private _basketItems: IProduct[];
+	private basketItems: IProduct[];
 
 	constructor() {
-		this._basketItems = [];
+		this.basketItems = [];
 	}
 
 	getBasketItems(): IProduct[] {
-		return this._basketItems;
+		return this.basketItems;
 	}
 
 	addBasketItem(item: IProduct): void {
 		if (!this.isInBasket(item.id)) {
-			this._basketItems.push(item);
+			this.basketItems.push(item);
 		}
 	}
 
 	removeBasketItem(id: string): void {
-		this._basketItems = this._basketItems.filter(item => item.id !== id);
+		this.basketItems = this.basketItems.filter(item => item.id !== id);
 	}
 
 	clearBasket(): void {
-		this._basketItems = [];
+		this.basketItems = [];
 	}
 
 	getTotalPrice(): number {
-		return this._basketItems.reduce((sum, item) => sum + (item.price || 0), 0);
+		return this.basketItems.reduce((sum, item) => sum + (item.price || 0), 0);
 	}
 
 	getBasketCount(): number {
-		return this._basketItems.length;
+		return this.basketItems.length;
 	}
 
 	isInBasket(id: string): boolean {
-		return this._basketItems.some(item => item.id === id);
+		return this.basketItems.some(item => item.id === id);
 	}
 }

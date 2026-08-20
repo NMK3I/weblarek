@@ -1,79 +1,73 @@
-import { IBuyer, TPayment } from "../../types";
+import { IBuyer, TPayment, TBuyerErrors } from "../../types";
 
 export class BuyerModel {
-	private _payment: TPayment | null;
-	private _email: string;
-	private _phone: string;
-	private _address: string;
-	private _errors: Partial<Record<keyof IBuyer, string>>;
+	private payment: TPayment | null;
+	private email: string;
+	private phone: string;
+	private address: string;
 
 	constructor() {
-		this._payment = null;
-		this._email = '';
-		this._phone = '';
-		this._address = '';
-		this._errors = {};
+		this.payment = null;
+		this.email = '';
+		this.phone = '';
+		this.address = '';
 	}
 
 	setBuyerField(field: keyof IBuyer, value: string): void {
 		switch (field) {
 			case 'payment':
-				this._payment = value as TPayment;
+				this.payment = value as TPayment;
 				break;
 			
 			case 'email':
-				this._email = value;
+				this.email = value;
 				break;
 
 			case 'phone':
-				this._phone = value;
+				this.phone = value;
 				break;
 
 			case 'address':
-				this._address = value;
+				this.address = value;
 				break;
 		}
-
-		this.validateBuyerData();
 	}
 
 	getBuyerData(): IBuyer {
 		return {
-			payment: this._payment,
-			email: this._email,
-			phone: this._phone,
-			address: this._address
+			payment: this.payment,
+			email: this.email,
+			phone: this.phone,
+			address: this.address
 		}
 	}
 
 	clearBuyerData(): void {
-		this._payment = null;
-		this._email = '';
-		this._phone = '';
-		this._address = '';
-		this._errors = {};
+		this.payment = null;
+		this.email = '';
+		this.phone = '';
+		this.address = '';
 	}
 
-	validateBuyerData(): Partial<Record<keyof IBuyer, string>> {
-		const currentErrors: Partial<Record<keyof  IBuyer, string>> = {};
+	validateBuyerData(): TBuyerErrors {
+		const currentErrors: TBuyerErrors = {};
 
-		if (!this._payment) {
+		if (!this.payment) {
 			currentErrors.payment = 'Не выбран способ оплаты';
 		}
 		
-		if (this._email.trim().length === 0) {
+		if (this.email.trim().length === 0) {
 			currentErrors.email = 'Укажите email';
 		}
 
-		if (this._phone.trim().length === 0) {
+		if (this.phone.trim().length === 0) {
 			currentErrors.phone = 'Укажите номер телефона';
 		}
 
-		if (this._address.trim().length === 0) {
+		if (this.address.trim().length === 0) {
 			currentErrors.address = 'Укажите адрес доставки';
 		}
 
-		this._errors = currentErrors;
-		return this._errors;
+		return currentErrors;
 	}
 }

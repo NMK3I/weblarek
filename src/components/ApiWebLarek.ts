@@ -1,18 +1,17 @@
-import { Api } from "./base/Api";
-import { IOrder, IOrderResult, IApiProductsResponse } from "../types";
+import { IApi, IOrder, IOrderResult, IApiProductsResponse } from "../types";
 
-export class ApiWebLarek extends Api {
-	constructor(baseUrl: string, options?: RequestInit) {
-		super(baseUrl, options);
+export class ApiWebLarek {
+	private api: IApi;
+
+	constructor(api: IApi) {
+		this.api = api;
 	}
 
-	async getProductList(): Promise<IApiProductsResponse> {
-		const data = await this.get<IApiProductsResponse>('/product');
-		return data;
+	getProductList(): Promise<IApiProductsResponse> {
+		return this.api.get<IApiProductsResponse>('/product');
 	}
 
-	async createOrder(order: IOrder): Promise<IOrderResult> {
-		const result = await this.post<IOrderResult>('/order', order);
-		return result;
+	createOrder(order: IOrder): Promise<IOrderResult> {
+		return this.api.post<IOrderResult>('/order', order);
 	}
 }
