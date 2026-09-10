@@ -22,12 +22,12 @@ export class CatalogModel {
 	}
 
 	getItemById(id: string): IProduct | undefined {
-		return this.items.find(item => item.id === id)
+		return this.items.find(item => item.id === id);
 	}
 
 	setPreview(item: IProduct | null): void {
 		this.preview = item;
-		this.events.emit('preview:changed', item || undefined);
+		this.events.emit('preview:changed');
 	}
 
 	getPreview(): IProduct | null {

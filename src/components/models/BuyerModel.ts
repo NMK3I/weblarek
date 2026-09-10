@@ -44,7 +44,7 @@ export class BuyerModel {
 			email: this.email,
 			phone: this.phone,
 			address: this.address
-		}
+		};
 	}
 
 	clearBuyerData(): void {
@@ -57,8 +57,6 @@ export class BuyerModel {
 
 	validateBuyerData(): TBuyerErrors {
 		const currentErrors: TBuyerErrors = {};
-		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		const phoneRegex = /^(?:\+?7|8)?[\s\-()]?(?:\d[\s\-()]*){10}$/;
 
 		if (!this.payment) {
 			currentErrors.payment = 'Не выбран способ оплаты';
@@ -66,14 +64,10 @@ export class BuyerModel {
 		
 		if (this.email.trim().length === 0) {
 			currentErrors.email = 'Укажите email';
-		} else if (!emailRegex.test(this.email.trim())) {
-			currentErrors.email = 'Некорректный формат email';
 		}
 
 		if (this.phone.trim().length === 0) {
 			currentErrors.phone = 'Укажите номер телефона';
-		} else if (!phoneRegex.test(this.phone.trim())) {
-			currentErrors.phone = 'Некорректный формат телефона';
 		}
 
 		if (this.address.trim().length === 0) {

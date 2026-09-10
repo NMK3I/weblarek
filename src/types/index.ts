@@ -38,3 +38,53 @@ export interface IApiProductsResponse {
     total: number;
     items: IProduct[];
 }
+
+export interface IHeaderData {
+    counter: number;
+}
+
+export interface IGalleryData {
+    catalog: HTMLElement[];
+}
+
+export interface IModalData {
+    content: HTMLElement;
+}
+
+export interface IBasketView {
+    items: HTMLElement[];
+    total: number;
+    disabled: boolean;
+}
+
+export interface ISuccess {
+    total: number;
+}
+
+export interface ICardActions {
+    onClick: (e: MouseEvent) => void;
+}
+
+export interface ICardPreviewData extends IProduct {
+    buttonText: string;
+    buttonDisabled: boolean;
+}
+
+export interface ICardBasketData extends IProduct {
+    index: number;
+}
+
+export interface IFormState {
+    valid: boolean;
+    errors: string[];
+}
+
+export interface IOrderForm {
+    payment: TPayment | null;
+    address: string;
+}
+
+export interface IContactsForm {
+    email: string;
+    phone: string;
+}
