@@ -52,9 +52,6 @@ const cardPreview = new CardPreview(cloneTemplate(cardPreviewTemplate), {
 });
 const successView = new Success(cloneTemplate(successTemplate), events);
 
-type ModalMode = 'basket' | 'preview' | 'order' | 'contacts' | 'success' | null;
-let currentModal: ModalMode = null;
-
 const makeImageUrl = (path: string): string =>
 	path.startsWith('http') ? path : `${CDN_URL}${path}`;
 
@@ -135,7 +132,6 @@ events.on('preview:changed', () => {
 			? 'Удалить из корзины'
 			: 'Купить';
 	
-	currentModal = 'preview';
 	modal.render({
 		content: cardPreview.render({
 			...item,
@@ -158,7 +154,6 @@ events.on('preview:buy-click', () => {
 		basketModel.addBasketItem(item);
 	}
 
-	currentModal = null;
 	modal.close();
 })
 
@@ -168,7 +163,6 @@ events.on('basket:changed', () => {
 })
 
 events.on('basket:open', () => {
-	currentModal = 'basket';
 	modal.render({ content: basketView.render() });
 	modal.open();
 })
@@ -178,7 +172,6 @@ events.on<{ id: string }>('basket:remove-item', ({ id }) => {
 })
 
 events.on('order:open', () => {
-	currentModal = 'order';
 	modal.render({ content: orderForm.render() });
 	modal.open();
 })
@@ -198,7 +191,6 @@ events.on('buyer:changed', () => {
 })
 
 events.on('order:submit', () => {
-	currentModal = 'contacts';
 	modal.render({ content: contactsForm.render() });
 	modal.open();
 })
@@ -214,7 +206,6 @@ events.on('contacts:submit', () => {
 	}
 
 	ApiLarek.createOrder(orderPayload).then((result) => {
-		currentModal = 'success';
 		modal.render({ content: successView.render({ total: result.total }) });
 		modal.open();
 
@@ -233,7 +224,6 @@ events.on('contacts:submit', () => {
 })
 
 events.on('success:close', () => {
-	currentModal = null;
 	modal.close();
 })
 
